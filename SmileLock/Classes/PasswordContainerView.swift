@@ -124,7 +124,7 @@ import LocalAuthentication
         return view
     }
     
-    open class func create(in stackView: UIStackView, digit: Int) -> PasswordContainerView {
+    @objc open class func create(in stackView: UIStackView, digit: Int) -> PasswordContainerView {
         let passwordContainerView = create(withDigit: digit)
         stackView.addArrangedSubview(passwordContainerView)
         return passwordContainerView
