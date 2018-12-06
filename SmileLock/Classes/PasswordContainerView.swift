@@ -13,7 +13,7 @@ public protocol PasswordInputCompleteProtocol: class {
     func touchAuthenticationComplete(_ passwordContainerView: PasswordContainerView, success: Bool, error: Error?)
 }
 
-open class PasswordContainerView: UIView {
+@objc open class PasswordContainerView: UIView {
     
     //MARK: IBOutlet
     @IBOutlet open var passwordInputViews: [PasswordInputView]!
@@ -28,7 +28,7 @@ open class PasswordContainerView: UIView {
         }
     }
     
-    open weak var delegate: PasswordInputCompleteProtocol?
+    @objc open weak var delegate: PasswordInputCompleteProtocol?
     fileprivate var touchIDContext = LAContext()
     
     fileprivate var inputString: String = "" {
@@ -116,7 +116,7 @@ open class PasswordContainerView: UIView {
     }
     
     //MARK: Init
-    open class func create(withDigit digit: Int) -> PasswordContainerView {
+    @objc open class func create(withDigit digit: Int) -> PasswordContainerView {
         let bundle = Bundle(for: self)
         let nib = UINib(nibName: "PasswordContainerView", bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first as! PasswordContainerView
