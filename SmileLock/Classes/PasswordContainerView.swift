@@ -76,7 +76,7 @@ import LocalAuthentication
         return touchIDContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
     }
     
-    open var touchAuthenticationEnabled = false {
+    @objc open var touchAuthenticationEnabled = false {
         didSet {
             let enable = (isTouchAuthenticationAvailable && touchAuthenticationEnabled)
             touchAuthenticationButton.alpha = enable ? 1.0 : 0.0
