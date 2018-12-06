@@ -104,7 +104,7 @@ import LocalAuthentication
     }
     
     //MARK: VisualEffect
-    open func rearrangeForVisualEffectView(in vc: UIViewController) {
+    @objc open func rearrangeForVisualEffectView(in vc: UIViewController) {
         self.isVibrancyEffect = true
         self.passwordInputViews.forEach { passwordInputView in
             let label = passwordInputView.label
