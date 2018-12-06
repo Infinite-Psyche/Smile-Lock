@@ -39,4 +39,5 @@ open class PasswordUIValidation<T>: PasswordInputCompleteProtocol {
     }
     
     open func touchAuthenticationComplete(_ passwordContainerView: PasswordContainerView, success: Bool, error: Error?) {}
+    open func passwordInputCancel(_ passwordContainerView: PasswordContainerView) {}
 }

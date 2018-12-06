@@ -11,6 +11,8 @@ import LocalAuthentication
 @objc public protocol PasswordInputCompleteProtocol: class {
     func passwordInputComplete(_ passwordContainerView: PasswordContainerView, input: String)
     func touchAuthenticationComplete(_ passwordContainerView: PasswordContainerView, success: Bool, error: Error?)
+    
+    func passwordInputCancel(_ passwordContainerView: PasswordContainerView)
 }
 
 @objc open class PasswordContainerView: UIView {
@@ -19,12 +21,21 @@ import LocalAuthentication
     @IBOutlet open var passwordInputViews: [PasswordInputView]!
     @IBOutlet open weak var passwordDotView: PasswordDotView!
     @IBOutlet open weak var deleteButton: UIButton!
+    @IBOutlet open weak var cancelButton: UIButton!
     @IBOutlet open weak var touchAuthenticationButton: UIButton!
     
+    open var passwordInputCancel: (() -> Void)?
+
     //MARK: Property
     open var deleteButtonLocalizedTitle: String = "" {
         didSet {
             deleteButton.setTitle(NSLocalizedString(deleteButtonLocalizedTitle, comment: ""), for: .normal)
+        }
+    }
+
+    open var cancelButtonLocalizedTitle: String = "" {
+        didSet {
+            cancelButton.setTitle(NSLocalizedString(cancelButtonLocalizedTitle, comment: ""), for: .normal)
         }
     }
     
@@ -53,6 +64,7 @@ import LocalAuthentication
         didSet {
             guard !isVibrancyEffect else { return }
             deleteButton.setTitleColor(tintColor, for: UIControlState())
+            cancelButton.setTitleColor(tintColor, for: UIControlState())
             passwordDotView.strokeColor = tintColor
             touchAuthenticationButton.tintColor = tintColor
             passwordInputViews.forEach {
@@ -140,6 +152,8 @@ import LocalAuthentication
         }
         deleteButton.titleLabel?.adjustsFontSizeToFitWidth = true
         deleteButton.titleLabel?.minimumScaleFactor = 0.5
+        cancelButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        cancelButton.titleLabel?.minimumScaleFactor = 0.5
         touchAuthenticationEnabled = true
         
         var image = touchAuthenticationButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
@@ -179,6 +193,10 @@ import LocalAuthentication
             }
             inputString = String(inputString.characters.dropLast())
         #endif
+    }
+
+    @IBAction func onCancel(_ sender: AnyObject) {
+        delegate?.passwordInputCancel(self)
     }
 
     @IBAction func touchAuthenticationAction(_ sender: UIButton) {
@@ -261,6 +279,7 @@ private extension PasswordContainerView {
         }
         
         deleteButton.setTitleColor(titleColor, for: .normal)
+        cancelButton.setTitleColor(titleColor, for: .normal)
         passwordDotView.strokeColor = strokeColor
         passwordDotView.fillColor = fillColor
         touchAuthenticationButton.tintColor = strokeColor
