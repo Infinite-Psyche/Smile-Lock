@@ -156,16 +156,16 @@ import LocalAuthentication
     }
     
     //MARK: Input Wrong
-    open func wrongPassword() {
+    @objc open func wrongPassword() {
         passwordDotView.shakeAnimationWithCompletion {
             self.clearInput()
         }
     }
     
-    open func clearInput() {
+    @objc open func clearInput() {
         inputString = ""
     }
-    
+
     //MARK: IBAction
     @IBAction func deleteInputString(_ sender: AnyObject) {
         #if swift(>=3.2)
@@ -180,7 +180,7 @@ import LocalAuthentication
             inputString = String(inputString.characters.dropLast())
         #endif
     }
-    
+
     @IBAction func touchAuthenticationAction(_ sender: UIButton) {
         touchAuthentication()
     }
