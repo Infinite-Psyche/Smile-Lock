@@ -63,8 +63,9 @@ import LocalAuthentication
     open override var tintColor: UIColor! {
         didSet {
             guard !isVibrancyEffect else { return }
-            deleteButton.setTitleColor(tintColor, for: UIControlState())
-            cancelButton.setTitleColor(tintColor, for: UIControlState())
+            deleteButton.setTitleColor(tintColor, for: UIControl.State())
+            deleteButton.setTitleColor(tintColor.withAlphaComponent(0.5), for: .disabled)
+            cancelButton.setTitleColor(tintColor, for: UIControl.State())
             passwordDotView.strokeColor = tintColor
             touchAuthenticationButton.tintColor = tintColor
             passwordInputViews.forEach {
@@ -165,10 +166,13 @@ import LocalAuthentication
             }
         }
         
-        touchAuthenticationButton.setImage(image, for: UIControlState())
+        touchAuthenticationButton.setImage(image, for: UIControl.State())
         touchAuthenticationButton.tintColor = tintColor
 
         cancelButton.isHidden = true
+
+        // No password, so disable delete button
+        deleteButton.isEnabled = false
     }
     
     @objc open func enableCancelButton() {
@@ -185,6 +189,7 @@ import LocalAuthentication
     
     @objc open func clearInput() {
         inputString = ""
+        deleteButton.isEnabled = false
     }
 
     //MARK: IBAction
@@ -200,6 +205,12 @@ import LocalAuthentication
             }
             inputString = String(inputString.characters.dropLast())
         #endif
+
+        if(0 != inputString.count) {
+            deleteButton.isEnabled = true
+        } else {
+            deleteButton.isEnabled = false
+        }
     }
 
     @IBAction func onCancel(_ sender: AnyObject) {
@@ -286,6 +297,7 @@ private extension PasswordContainerView {
         }
         
         deleteButton.setTitleColor(titleColor, for: .normal)
+        deleteButton.setTitleColor(tintColor.withAlphaComponent(0.5), for: .disabled)
         cancelButton.setTitleColor(titleColor, for: .normal)
         passwordDotView.strokeColor = strokeColor
         passwordDotView.fillColor = fillColor
@@ -316,5 +328,10 @@ extension PasswordContainerView: PasswordInputViewTappedProtocol {
         #endif
 
         inputString += tappedString
+        if(0 != inputString.count) {
+            deleteButton.isEnabled = true
+        } else {
+            deleteButton.isEnabled = false
+        }
     }
 }

@@ -32,6 +32,9 @@ class PasswordLoginViewController: UIViewController {
 }
 
 extension PasswordLoginViewController: PasswordInputCompleteProtocol {
+    func passwordInputCancel(_ passwordContainerView: PasswordContainerView) {
+    }
+    
     func passwordInputComplete(_ passwordContainerView: PasswordContainerView, input: String) {
         if validation(input) {
             validationSuccess()
