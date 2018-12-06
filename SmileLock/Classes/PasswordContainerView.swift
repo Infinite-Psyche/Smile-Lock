@@ -20,7 +20,6 @@ import LocalAuthentication
     //MARK: IBOutlet
     @IBOutlet open var passwordInputViews: [PasswordInputView]!
     @IBOutlet open weak var passwordDotView: PasswordDotView!
-    @IBOutlet open weak var bottomRowStackView: UIStackView!
     @IBOutlet open weak var deleteButton: UIButton!
     @IBOutlet open weak var cancelButton: UIButton!
     @IBOutlet open weak var touchAuthenticationButton: UIButton!
@@ -169,18 +168,12 @@ import LocalAuthentication
         touchAuthenticationButton.setImage(image, for: UIControlState())
         touchAuthenticationButton.tintColor = tintColor
 
-        // Default to no cancel button
-        bottomRowStackView.removeArrangedSubview(cancelButton)
+        cancelButton.isHidden = true
     }
     
     @objc open func enableCancelButton() {
-        if(nil != cancelButton.superview) {
-            // Nothing to do
-            return
-        }
-
-        bottomRowStackView.removeArrangedSubview(touchAuthenticationButton)
-        bottomRowStackView.insertArrangedSubview(cancelButton, at: 0)
+        cancelButton.isHidden = false
+        touchAuthenticationButton.isHidden = true
     } // End of displayCancelButton
 
     //MARK: Input Wrong
