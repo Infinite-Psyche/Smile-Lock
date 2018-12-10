@@ -64,7 +64,7 @@ import LocalAuthentication
         didSet {
             guard !isVibrancyEffect else { return }
             deleteButton.setTitleColor(tintColor, for: UIControl.State())
-            deleteButton.setTitleColor(tintColor.withAlphaComponent(0.5), for: .disabled)
+//            deleteButton.setTitleColor(tintColor.withAlphaComponent(0.5), for: .disabled)
             cancelButton.setTitleColor(tintColor, for: UIControl.State())
             passwordDotView.strokeColor = tintColor
             touchAuthenticationButton.tintColor = tintColor
@@ -297,7 +297,7 @@ private extension PasswordContainerView {
         }
         
         deleteButton.setTitleColor(titleColor, for: .normal)
-        deleteButton.setTitleColor(tintColor.withAlphaComponent(0.5), for: .disabled)
+//        deleteButton.setTitleColor(tintColor.withAlphaComponent(0.5), for: .disabled)
         cancelButton.setTitleColor(titleColor, for: .normal)
         passwordDotView.strokeColor = strokeColor
         passwordDotView.fillColor = fillColor
