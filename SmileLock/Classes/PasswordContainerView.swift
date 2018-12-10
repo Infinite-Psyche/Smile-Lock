@@ -54,7 +54,7 @@ import LocalAuthentication
         }
     }
     
-    open var isVibrancyEffect = false {
+    @objc open var isVibrancyEffect = false {
         didSet {
             configureVibrancyEffect()
         }
