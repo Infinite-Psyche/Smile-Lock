@@ -222,6 +222,10 @@ import LocalAuthentication
     }
     
     open func touchAuthentication() {
+        promptBiometricAuthentication()
+    }
+    
+    @objc open func promptBiometricAuthentication() {
         guard isTouchAuthenticationAvailable else { return }
         touchIDContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: touchAuthenticationReason) { (success, error) in
             DispatchQueue.main.async {
